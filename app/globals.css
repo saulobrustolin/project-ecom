@@ -1,11 +1,28 @@
 @import "tailwindcss";
 
+/* Estilizações gerais */
+b {
+    @apply font-semibold;
+}
+
 .animation-fade {
     animation: fade 0.4s ease-out 1;
 }
 
 .animation-brand {
     animation: brand 0.4s ease-out 1;
+}
+
+.animation-brand-reverse {
+    animation: brand 0.4s ease-out 1 reverse;
+}
+
+.animation-menu {
+    animation: menu 0.2s ease-out 1;
+}
+
+.animation-menu-reverse {
+    animation: menu 0.2s ease-out 1 reverse;
 }
 
 @keyframes fade {
@@ -27,5 +44,14 @@
     100% {
         transform: initial;
         opacity: 1;
+    }
+}
+
+@keyframes menu {
+    0% {
+        transform: translateX(200px);
+    }
+    100% {
+        transform: initial;
     }
 }

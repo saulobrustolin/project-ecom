@@ -7,7 +7,7 @@ export default function Home() {
       <Header/>
 
       <main
-        className="mt-[51px] p-2.5"
+        className="mt-[51px] p-2.5 min-h-full"
       >
         <Content/>
       </main>
