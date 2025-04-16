@@ -15,14 +15,19 @@ export default function Content(
         <div
             className="relative"
         >
-            <Image
-                src="/image.png"
-                width={500}
-                height={800}
-                alt="imagem de coleção"
-            />
+            <picture>
+                <source media="(min-width: 1280px)" srcSet="/card_01/image_principalCard_high.avif" />
 
-            
+                <source media="(min-width: 768px) and (max-width: 1280px)" srcSet="/card_01/image_principal_1279.avif" />
+                
+                <Image
+                    src="/card_01/image_principal_767.avif"
+                    width={3000}
+                    height={800}
+                    alt="imagem da coleção principal"
+                />
+            </picture>
+        
             <div
                 className="absolute top-0 p-2.5 flex flex-col gap-2.5"
             >
@@ -30,31 +35,28 @@ export default function Content(
                     <h1
                         className="font-semibold text-xl"
                     >
-                        {title}
+                        Days of Summer
                     </h1>
 
                     <p
-                        className="text-sm"
+                        className="text-sm font-semibold"
                     >
-                        {description}
+                        Uma nova abordagem para a temporada de verão
                     </p>
                 </div>
 
                 <div
                     className="flex gap-4"
                 >
-                    {tratamentAnchor.forEach(value, index) => {
-
-                    }}
                     <a
                         href="#"
-                        className="font-semibold uppercase text-md underline underline-offset-8"
+                        className="font-semibold uppercase text-sm underline underline-offset-12"
                     >
                         para ela
                     </a>
                     <a
                         href="#"
-                        className="font-semibold uppercase text-md underline underline-offset-8"
+                        className="font-semibold uppercase text-sm underline underline-offset-12"
                     >
                         para galleria
                     </a>
