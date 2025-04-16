@@ -1,6 +1,16 @@
 import Image from "next/image";
 
-export default function Content() {
+export default function Content(
+        title: string,
+        description: string,
+        anchor: string,
+        imageURL: string,
+        directionsAnchor: string
+    ) {
+
+    const tratamentAnchor: Array<string> = anchor.split(", ");
+    const tratamentDirections: Array<string> = directionsAnchor.split(", ");
+
     return (
         <div
             className="relative"
@@ -17,8 +27,7 @@ export default function Content() {
                     alt="imagem da coleção principal"
                 />
             </picture>
-
-            
+        
             <div
                 className="absolute top-0 p-2.5 flex flex-col gap-2.5"
             >

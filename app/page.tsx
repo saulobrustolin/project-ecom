@@ -9,7 +9,13 @@ export default function Home() {
       <main
         className="mt-[51px] p-2.5 min-h-full"
       >
-        <Content/>
+        <Content
+          title="Days of Summer"
+          description="Uma nova abordagem para a temporada de verão"
+          anchor="para ela, prada galleria"
+          imageURL="/image.png"
+          directionsAnchor="#, #"
+        />
       </main>
     </>
   );
