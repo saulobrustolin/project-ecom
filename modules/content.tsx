@@ -1,15 +1,6 @@
 import Image from "next/image";
 
-export default function Content(
-        title: string,
-        description: string,
-        anchor: string,
-        imageURL: string,
-        directionsAnchor: string
-    ) {
-
-    const tratamentAnchor: Array<string> = anchor.split(", ");
-    const tratamentDirections: Array<string> = directionsAnchor.split(", ");
+export default function Content() {
 
     return (
         <div
