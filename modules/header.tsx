@@ -4,10 +4,13 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 import MenuBar from './menu-navbar';
+import MouseOver from './mouseOver';
 
 export default function Header() {
     const [menuActivated, setMenuActivated] = useState(false);
     const [navigationBar, setNavigationBar] = useState(false);
+    const [titleNavigation, setTitleNavigation] = useState('');
+    const [contentLoadingMouseOver, setContentLoadingMouseOver] = useState('');
 
     const NavbarMenu = [
         {
@@ -46,6 +49,27 @@ export default function Header() {
         setMenuActivated(false);
     }
 
+    function closeMenu() {
+        setMenuActivated(false);
+        setNavigationBar(false);
+    }
+
+    function changeTitleNavigation(event: React.MouseEvent<HTMLButtonElement>) {
+        const target = event.target as HTMLButtonElement;
+        setTitleNavigation(target.innerText);
+    }
+
+    function handleClickMenuNavigation(event: React.MouseEvent<HTMLButtonElement>) {
+        changeTitleNavigation(event);
+        navigationMenu();
+    }
+
+    function onMouseOver(event: React.MouseEvent<HTMLAnchorElement>) {
+        const target = event.target as HTMLButtonElement;
+
+        setContentLoadingMouseOver(target.innerText.toLowerCase());
+    }
+
     return (
         <header
             className={'fixed left-0 top-0 z-100 w-full flex flex-col items-center ' + (menuActivated || navigationBar ? 'min-h-screen bg-white items-start border-0' : 'max-h-[50px]')}
@@ -58,7 +82,7 @@ export default function Header() {
                 >
                     {navigationBar ? (
                         <button
-                            onClick={navigationMenu}
+                        onClick={menuAction}
                             className='animation-fade'
                         >
                             <svg className='rotate-180' fill="none" height="24" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
@@ -219,19 +243,30 @@ export default function Header() {
                     >
                     {NavbarMenu?.map((item, index) => (
                         <li key={index}>
-                            <a
-                                href={item.endpoint}
+                            <Link
+                                href=''
                                 className='uppercase text-xs font-semibold text-black'
-                            >{item.name}</a>
+                                onMouseOver={onMouseOver}
+                            >
+                                {item.name}
+                            </Link>
                         </li>
                     ))}
                     </ul>
                 </div>
 
+                {navigationBar ? (
+                    <h4
+                        className='uppercase font-semibold animation-fade'
+                    >
+                        {titleNavigation}
+                    </h4>
+                ) : ''}
+
                 {menuActivated || navigationBar ? (
                     <nav className="flex gap-5">
                         <button
-                            onClick={menuAction}
+                            onClick={closeMenu}
                         >
                             <svg className='animation-fade' fill="none" height="22" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                                 <line x1="18" x2="6" y1="6" y2="18" />
@@ -273,6 +308,12 @@ export default function Header() {
                 <MenuBar/>
             ): ''}
 
+            {(contentLoadingMouseOver != '') ? (
+                <MouseOver
+                    content={contentLoadingMouseOver}
+                />
+            ) : ''}
+
             {menuActivated ? (
                 <div
                     className={'w-full ' + ((menuActivated || navigationBar) ? 'animation-menu' : 'animation-menu-reverse')}
@@ -285,10 +326,10 @@ export default function Header() {
                                 <li
                                     key={index}
                                     className='flex justify-between items-center'
-                                    onClick={navigationMenu}
                                 >
                                     <button
                                         className='uppercase font-semibold text-black'
+                                        onClick={handleClickMenuNavigation}
                                     >
                                         {item.name}
                                     </button>
