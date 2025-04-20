@@ -20,9 +20,11 @@ export default function Content() {
             </picture>
         
             <div
-                className="absolute top-0 p-2.5 flex flex-col gap-2.5"
+                className="absolute top-0 p-2.5 flex flex-col gap-2.5 2xl:gap-5"
             >
-                <div>
+                <div
+                    className="flex flex-col 2xl:gap-0.5"
+                >
                     <h1
                         className="font-semibold text-xl"
                     >
@@ -30,7 +32,7 @@ export default function Content() {
                     </h1>
 
                     <p
-                        className="text-sm font-semibold"
+                        className="text-sm font-semibold xl:font-normal"
                     >
                         Uma nova abordagem para a temporada de verão
                     </p>

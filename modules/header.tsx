@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import Link from 'next/link';
 import MenuBar from './menu-navbar';
@@ -10,7 +10,11 @@ export default function Header() {
     const [menuActivated, setMenuActivated] = useState(false);
     const [navigationBar, setNavigationBar] = useState(false);
     const [titleNavigation, setTitleNavigation] = useState('');
-    const [contentLoadingMouseOver, setContentLoadingMouseOver] = useState('');
+    const [mouseEnter, setMouseEnter] = useState(false);
+    const [mouseEnterContent, setMouseEnterContent] = useState(false);
+    const [contentLoadingMouseEnter, setContentLoadingMouseEnter] = useState('');
+
+    const refTarget = useRef<HTMLButtonElement | null>(null);
 
     const NavbarMenu = [
         {
@@ -64,21 +68,80 @@ export default function Header() {
         navigationMenu();
     }
 
-    function onMouseOver(event: React.MouseEvent<HTMLAnchorElement>) {
+    // funções de evento 
+
+    function onMouseEnter(event: React.MouseEvent<HTMLButtonElement>) {
+        setMouseEnter(true);
+        setMouseEnterContent(true);
+
         const target = event.target as HTMLButtonElement;
 
-        setContentLoadingMouseOver(target.innerText.toLowerCase());
+        setContentLoadingMouseEnter(target.innerText.toLowerCase());
+
+        refTarget.current = target;
     }
+
+    function onMouseLeave(event: React.MouseEvent<HTMLButtonElement>) {
+        if ((mouseEnter && mouseEnterContent) == true ) {
+            refTarget.current.classList.remove('font-medium');
+            refTarget.current.classList.add('font-bold', 'underline', 'underline-offset-8', 'animation-offset');
+        }
+    }
+
+    // funções de evento para o content dos assuntos da header
+
+    function onMouseContentEnter() {
+        setMouseEnterContent(true);
+        setMouseEnter(true);
+    }
+
+    function onMouseContentLeave() {
+        setMouseEnterContent(false);
+        setMouseEnter(false);
+    }
+
+    // funções de evento para aparalhos touch
+
+    function handleTouchMenu(event: React.TouchEvent<HTMLButtonElement>) {
+        setMouseEnter(mouseEnter => !mouseEnter);
+        setMouseEnterContent(mouseEnterContent => !mouseEnterContent);
+
+        refTarget.current = event.target as HTMLButtonElement;
+    }
+
+    // funções de estilização
+    function addStyle() {
+        if ((mouseEnter && mouseEnterContent) == true ) {
+            refTarget.current.classList.remove('font-medium');
+            refTarget.current.classList.add('font-bold', 'underline', 'underline-offset-8', 'animation-offset');
+        }
+    }
+
+    function removeStyle() {
+        if ((mouseEnter) == false) {
+            refTarget.current.classList.remove('font-bold', 'underline', 'underline-offset-8');
+            refTarget.current.classList.add('font-medium');
+        }
+    }
+
+    // funções de estado
+
+    useEffect(() => {
+        if (refTarget.current as HTMLButtonElement) {
+            addStyle();
+            removeStyle();
+        }
+    }, [mouseEnter, mouseEnterContent]);
 
     return (
         <header
             className={'fixed left-0 top-0 z-100 w-full flex flex-col items-center ' + (menuActivated || navigationBar ? 'min-h-screen bg-white items-start border-0' : 'max-h-[50px]')}
         >
             <nav
-                className='p-3 px-4 flex justify-between min-w-full border-b border-b-black/20 min-h-[50px]'
+                className='p-3 px-4 flex justify-between min-w-full border-b border-b-black/20 min-h-[50px] 2xl:px-32'
             >
                 <div
-                    className='flex gap-10'
+                    className='flex gap-24'
                 >
                     {navigationBar ? (
                         <button
@@ -243,13 +306,13 @@ export default function Header() {
                     >
                     {NavbarMenu?.map((item, index) => (
                         <li key={index}>
-                            <Link
-                                href=''
-                                className='uppercase text-xs font-semibold text-black'
-                                onMouseOver={onMouseOver}
+                            <button
+                                className='uppercase text-xs font-medium text-black'
+                                onMouseEnter={onMouseEnter}
+                                onTouchStart={handleTouchMenu}
                             >
                                 {item.name}
-                            </Link>
+                            </button>
                         </li>
                     ))}
                     </ul>
@@ -308,9 +371,11 @@ export default function Header() {
                 <MenuBar/>
             ): ''}
 
-            {(contentLoadingMouseOver != '') ? (
+            {(mouseEnter || mouseEnterContent) ? (
                 <MouseOver
-                    content={contentLoadingMouseOver}
+                    content={contentLoadingMouseEnter}
+                    onMouseContentEnter={onMouseContentEnter}
+                    onMouseContentLeave={onMouseContentLeave}
                 />
             ) : ''}
 
