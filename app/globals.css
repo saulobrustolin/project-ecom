@@ -17,6 +17,10 @@ b {
     animation: menu 0.2s ease-out;
 }
 
+.animation-offset {
+    animation: offset 0.2s ease-in-out;
+}
+
 @keyframes fade {
     0% {
         scale: 0;
@@ -52,5 +56,15 @@ b {
     }
     100% {
         transform: initial;
+    }
+}
+
+@keyframes offset {
+    0% {
+        offset-position: 0 20px;
+    }
+
+    100% {
+        offset-position: initial;
     }
 }
