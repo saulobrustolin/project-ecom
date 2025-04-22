@@ -75,29 +75,20 @@ export default function Header() {
         setMouseEnterContent(true);
 
         const target = event.target as HTMLButtonElement;
+        
+        refTarget.current = target;
 
         setContentLoadingMouseEnter(target.innerText.toLowerCase());
-
-        refTarget.current = target;
     }
 
-    function onMouseLeave(event: React.MouseEvent<HTMLButtonElement>) {
-        if ((mouseEnter && mouseEnterContent) == true ) {
-            refTarget.current.classList.remove('font-medium');
-            refTarget.current.classList.add('font-bold', 'underline', 'underline-offset-8', 'animation-offset');
-        }
+    function onMouseLeave() {
+        setMouseEnter(false);
     }
 
     // funções de evento para o content dos assuntos da header
 
-    function onMouseContentEnter() {
-        setMouseEnterContent(true);
-        setMouseEnter(true);
-    }
-
     function onMouseContentLeave() {
-        setMouseEnterContent(false);
-        setMouseEnter(false);
+        // setMouseEnterContent(false);
     }
 
     // funções de evento para aparalhos touch
@@ -109,29 +100,15 @@ export default function Header() {
         refTarget.current = event.target as HTMLButtonElement;
     }
 
-    // funções de estilização
-    function addStyle() {
-        if ((mouseEnter && mouseEnterContent) == true ) {
-            refTarget.current.classList.remove('font-medium');
-            refTarget.current.classList.add('font-bold', 'underline', 'underline-offset-8', 'animation-offset');
-        }
-    }
-
-    function removeStyle() {
-        if ((mouseEnter) == false) {
-            refTarget.current.classList.remove('font-bold', 'underline', 'underline-offset-8');
-            refTarget.current.classList.add('font-medium');
-        }
-    }
-
-    // funções de estado
-
     useEffect(() => {
         if (refTarget.current as HTMLButtonElement) {
-            addStyle();
-            removeStyle();
+            if (refTarget.current.classList.contains('hide')) {
+                refTarget.current.classList.replace('hide', 'show');
+            } else {
+                refTarget.current.classList.replace('show', 'hide');
+            }
         }
-    }, [mouseEnter, mouseEnterContent]);
+    }, [mouseEnter])
 
     return (
         <header
@@ -307,8 +284,9 @@ export default function Header() {
                     {NavbarMenu?.map((item, index) => (
                         <li key={index}>
                             <button
-                                className='uppercase text-xs font-medium text-black'
+                                className='uppercase text-xxs font-semibold text-black underline transition-opacity-decoration hide underline-offset-18 decoration-2'
                                 onMouseEnter={onMouseEnter}
+                                onMouseLeave={onMouseLeave}
                                 onTouchStart={handleTouchMenu}
                             >
                                 {item.name}
@@ -371,11 +349,12 @@ export default function Header() {
                 <MenuBar/>
             ): ''}
 
-            {(mouseEnter || mouseEnterContent) ? (
+            {mouseEnterContent ? (
                 <MouseOver
                     content={contentLoadingMouseEnter}
-                    onMouseContentEnter={onMouseContentEnter}
                     onMouseContentLeave={onMouseContentLeave}
+                    setMouseEnterContent={setMouseEnterContent}
+                    setMouseEnter={setMouseEnter}
                 />
             ) : ''}
 

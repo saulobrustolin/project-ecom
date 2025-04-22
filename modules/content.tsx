@@ -20,13 +20,13 @@ export default function Content() {
             </picture>
         
             <div
-                className="absolute top-0 p-2.5 flex flex-col gap-2.5 2xl:gap-5"
+                className="absolute top-0 p-5 flex flex-col gap-2.5 2xl:gap-5"
             >
                 <div
                     className="flex flex-col 2xl:gap-0.5"
                 >
                     <h1
-                        className="font-semibold text-xl"
+                        className="font-semibold text-2xl"
                     >
                         Days of Summer
                     </h1>
@@ -43,13 +43,13 @@ export default function Content() {
                 >
                     <a
                         href="#"
-                        className="font-semibold uppercase text-sm underline underline-offset-12"
+                        className="font-semibold uppercase text-sm underline underline-offset-12 tracking-wider"
                     >
                         para ela
                     </a>
                     <a
                         href="#"
-                        className="font-semibold uppercase text-sm underline underline-offset-12"
+                        className="font-semibold uppercase text-sm underline underline-offset-12 tracking-wider"
                     >
                         para galleria
                     </a>
