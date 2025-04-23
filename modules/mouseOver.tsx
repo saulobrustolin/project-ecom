@@ -1,7 +1,7 @@
-import { MouseOverProps, ImagesContent } from "@/config/config";
+import { MouseOverProps, ImagesContent, valuesHeader } from "@/config/config";
 
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function MouseOver({
     content,
@@ -10,49 +10,6 @@ export default function MouseOver({
     setMouseEnterContent
 }: MouseOverProps
 ) {
-    const ImagesContent: ImagesContent[] = [
-        {
-            images: {
-                res_768: '/header-section-gifts/01/768.avif',
-                res_1280: '/header-section-gifts/01/1280.avif',
-                res_1664: '/header-section-gifts/01/1664.webp'
-            },
-            content: 'Presentes para ela'
-        },
-        {
-            images: {
-                res_768: '/header-section-gifts/02/768.avif',
-                res_1280: '/header-section-gifts/02/1280.avif',
-                res_1664: '/header-section-gifts/02/1664.avif'
-            },
-            content: 'Presentes para ele'
-        },
-        {
-            images: {
-                res_768: '/header-section-gifts/03/768.avif',
-                res_1280: '/header-section-gifts/03/1280.avif',
-                res_1664: '/header-section-gifts/03/1664.avif'
-            },
-            content: 'Fragrâncias femininas'
-        },
-        {
-            images: {
-                res_768: '/header-section-gifts/04/768.avif',
-                res_1280: '/header-section-gifts/04/1280.avif',
-                res_1664: '/header-section-gifts/04/1664.avif'
-            },
-            content: 'Fragrâncias masculinas'
-        },
-        {
-            images: {
-                res_768: '/header-section-gifts/01/768.jpg',
-                res_1280: '/header-section-gifts/05/1280.avif',
-                res_1664: '/header-section-gifts/05/1664.avif'
-            },
-            content: 'Casa e estilo de vida'
-        }
-    ];
-
     function disableBar() {
         setMouseEnter(false);
         setMouseEnterContent(false);
@@ -71,77 +28,66 @@ export default function MouseOver({
                         className="grid grid-cols-4 gap-2"
                     >
                         {ImagesContent.map((item, index) => (
-                            <picture
+                            <div
+                                className="relative group"
                                 key={index}
-                                data-content={item.content}
-                                className="after-content relative"
                             >
-                                <source
-                                    media="(min-width: 768px) and (max-width: 1280px)"
-                                    srcSet={item.images.res_1280}
-                                />
-                                <source
-                                    media="(max-width: 768px)"
-                                    srcSet={item.images.res_768}
-                                />
-                                <img
-                                    src={item.images.res_1664}
-                                    alt={item.content}
-                                />
-                            </picture>
+                                <span
+                                    className="absolute top-1/2 left-1/2 text-center font-semibold text-xs uppercase -translate-1/2 text-white z-10 cursor-pointer hidden group-hover:inline-block"
+                                >
+                                    {item.content}
+                                </span>
+                                <picture
+                                    className="cursor-pointer"
+                                >
+                                    <source
+                                        media="(min-width: 768px) and (max-width: 1280px)"
+                                        srcSet={item.images.res_1280}
+                                    />
+                                    <source
+                                        media="(max-width: 768px)"
+                                        srcSet={item.images.res_768}
+                                    />   
+                                    <img
+                                        src={item.images.res_1664}
+                                        alt={item.content}
+                                        className="transition-all group-hover:brightness-60"
+                                    />
+                                </picture>
+                            </div>
                         ))}
 
-                        <div
-                            className="bg-neutral-300/25 col-start-4 col-span-1 row-span-2 row-start-1 p-2.5 xl:min-w-[175px]"
-                        >
-                            <span
-                                className="text-xs font-semibold text-black transition-opacity-hover cursor-pointer"
-                            >PRESENTES</span>
-                            <ul
-                                className="flex gap-1 flex-col"
-                            >
-                                <li>
-                                    <Link
-                                        href='#'
-                                        className="cursor-pointer text-xxs transition-opacity-hover"
+                        {valuesHeader?.map((value, i) => {
+                            return (
+                                <div
+                                    className="bg-neutral-300/25 col-start-4 col-span-1 row-span-2 row-start-1 p-2.5 xl:min-w-[175px]"
+                                    key={`${value.categorie.name}-${i}`}
+                                >
+                                    <span
+                                        className="text-xs font-semibold text-black transition-opacity hover:opacity-70 cursor-pointer uppercase"
                                     >
-                                        Presentes para ela
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href='#'
-                                        className="cursor-pointer text-xxs transition-opacity-hover"
+                                        {value.categorie.name}
+                                    </span>
+
+                                    <ul
+                                        className="flex gap-0.5 flex-col"
                                     >
-                                        Presentes para ele
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href='#'
-                                        className="cursor-pointer text-xxs transition-opacity-hover"
-                                    >
-                                        Fragrâncias femininas
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href='#'
-                                        className="cursor-pointer text-xxs transition-opacity-hover"
-                                    >
-                                        Fragrâncias masculinas
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href='#'
-                                        className="cursor-pointer text-xxs transition-opacity-hover"
-                                    >
-                                        Casa e estilo de vida
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
+                                        {value.categorie.subcategories.map((subcategorie, index) => {
+                                        return (
+                                            <li
+                                                key={`${subcategorie.name}-${index}`}
+                                            >
+                                                <Link
+                                                    href={subcategorie.redirect}
+                                                    className="cursor-pointer text-xxs transition-opacity hover:opacity-70"
+                                                >
+                                                    {subcategorie.name}
+                                                </Link>
+                                            </li>
+                                        )})}
+                                    </ul>
+                                </div>
+                            )})}
                     </div>
                     <button
                         className="flex justify-end items-start"

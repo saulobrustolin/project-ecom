@@ -2,7 +2,7 @@
 
 /* Estilizações gerais */
 b {
-    @apply font-semibold;
+    font-weight: 600;
 }
 
     /* Configurações de animações */
@@ -103,36 +103,3 @@ b {
 .transition-opacity-decoration {
     transition: text-decoration-color 0.2s ease-in-out;
 }
-
-.hide {
-    @apply decoration-transparent;
-}
-
-.show {
-    @apply decoration-black;
-}
-
-    /* Configuração de hover transition opacity */
-
-.transition-opacity-hover {
-    transition: opacity 0.2s ease-in-out;
-}
-
-.transition-opacity-hover:hover {
-    opacity: 0.7;
-}
-
-    /* Carregamento dinâmico de imagens */
-/* .after-content::after {
-    font-family: 'Inter';
-    content: attr(data-content);
-    position: absolute;
-    top: 50%;
-    transform: translateX(12px);
-    transform: translateY(12px);
-    text-align: center;
-    font-size: 12px;
-    text-transform: uppercase;
-    font-weight: bold;
-    opacity: 0.8;
-} */
