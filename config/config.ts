@@ -17,6 +17,7 @@ export interface ImagesContent {
     content: string;
 };
 
+
 type subcategoriesValuesHeader = {
     name: string,
     redirect: string
@@ -28,6 +29,13 @@ interface valuesHeader {
         subcategories: subcategoriesValuesHeader[]
     }
 };
+
+
+interface contentMenu {
+    name: string,
+    slug: string,
+    subcategories: any | null
+}
 
 // variáveis de produção
 
@@ -130,3 +138,7 @@ export const valuesHeader: valuesHeader[] = [
         }
     }
 ]
+
+export const valuesHeaderWomen = {
+    
+}

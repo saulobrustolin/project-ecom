@@ -1,354 +1,129 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react';
-
-import Link from 'next/link';
-import MenuBar from './menu-navbar';
-import MouseOver from './mouseOver';
-
-import { NavbarMenu } from '@/config/config';
+import { useEffect, useState } from 'react';
 
 export default function Header() {
-    const [menuActivated, setMenuActivated] = useState(false);
-    const [navigationBar, setNavigationBar] = useState(false);
-    const [titleNavigation, setTitleNavigation] = useState('');
-    const [mouseEnter, setMouseEnter] = useState(false);
-    const [mouseEnterContent, setMouseEnterContent] = useState(false);
-    const [contentLoadingMouseEnter, setContentLoadingMouseEnter] = useState('');
-
-    const refTarget = useRef<HTMLButtonElement | null>(null);
-
-    function menuAction() {
-        setMenuActivated(menuActivated => !menuActivated);
-        setNavigationBar(false);
-    }
-
-    function navigationMenu() {
-        setNavigationBar(navigationBar => !navigationBar);
-        setMenuActivated(false);
-    }
-
-    function closeMenu() {
-        setMenuActivated(false);
-        setNavigationBar(false);
-    }
-
-    function changeTitleNavigation(event: React.MouseEvent<HTMLButtonElement>) {
-        const target = event.target as HTMLButtonElement;
-        setTitleNavigation(target.innerText);
-    }
-
-    function handleClickMenuNavigation(event: React.MouseEvent<HTMLButtonElement>) {
-        changeTitleNavigation(event);
-        navigationMenu();
-    }
-
-    // funções de evento 
-
-    function onMouseEnter(event: React.MouseEvent<HTMLButtonElement>) {
-        setMouseEnter(true);
-        setMouseEnterContent(true);
-
-        const target = event.target as HTMLButtonElement;
-        
-        refTarget.current = target;
-
-        setContentLoadingMouseEnter(target.innerText.toLowerCase());
-    }
-
-    function onMouseLeave() {
-        setMouseEnter(false);
-    }
-
-    // funções de evento para o content dos assuntos da header
-
-    function onMouseContentLeave() {
-        setMouseEnterContent(false);
-    }
-
-    // funções de evento para aparalhos touch
-
-    function handleTouchMenu(event: React.TouchEvent<HTMLButtonElement>) {
-        setMouseEnter(mouseEnter => !mouseEnter);
-        setMouseEnterContent(mouseEnterContent => !mouseEnterContent);
-
-        refTarget.current = event.target as HTMLButtonElement;
-    }
+    const [themeDark, setThemeDark] = useState(true);
 
     useEffect(() => {
-        if (refTarget.current as HTMLButtonElement) {
-            if (refTarget.current.classList.contains('decoration-transparent')) {
-                refTarget.current.classList.replace('decoration-transparent', 'decoration-black');
-            } else {
-                refTarget.current.classList.replace('decoration-black', 'decoration-transparent');
-            }
-        }
-    }, [mouseEnter])
+        setThemeDark(false);
+    }, []);
 
     return (
         <header
-            className={'fixed left-0 top-0 z-100 w-full flex flex-col items-center ' + (menuActivated || navigationBar ? 'min-h-screen bg-white items-start border-0' : 'max-h-[50px]')}
+            className="top-0 left-0 grid grid-rows-2 md:grid-rows-1 grid-cols-3 md:grid-cols-[30%_1fr_20%_10%] 2xl:grid-cols-[20%_1fr_15%_5%] gap-2 fixed items-center justify-between min-w-screen py-5 px-4 shadow-in-box"
         >
-            <nav
-                className='p-3 px-4 flex justify-between min-w-full border-b border-b-black/10 min-h-[50px] 2xl:px-32'
+            <div
+                className='flex justify-start'
+            >    
+                <svg className='h-6 w-6' width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12H21M3 6H21M3 18H21" stroke={themeDark ? 'black' : 'white'} stroke-width="2" />
+                </svg>
+            </div>
+            <div
+                className='flex justify-center'
             >
-                <div
-                    className='flex gap-24'
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="12 286 970 180"
+                    height='24'
+                    className='text-center 2xl:h-7'
                 >
-                    {navigationBar ? (
-                        <button
-                        onClick={menuAction}
-                            className='animation-fade'
-                        >
-                            <svg className='rotate-180' fill="none" height="24" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                    <polyline points="10 17 15 12 10 7"/>
-                            </svg>
-                        </button>
-                    ) : (
-                        <Link
-                            href="/"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={150}
-                                viewBox="12 286 970 180"
-                                className='animation-brand'
-                            >
-                                <path
-                                    fill="black" stroke="black" stroke-width="1"
-                                    d="M 85.56,466.00
-                                    C 127.73,466.00 155.59,444.92 155.59,413.58
-                                        155.59,385.53 136.52,368.48 95.61,357.22
-                                        69.50,349.70 62.22,344.44 62.22,335.92
-                                        62.22,327.41 71.27,322.16 85.56,322.16
-                                        101.88,322.16 120.20,328.41 132.25,337.69
-                                        132.25,337.69 151.08,307.59 151.08,307.59
-                                        132.75,294.05 109.41,286.00 84.06,286.00
-                                        43.39,286.00 19.55,306.84 19.55,336.42
-                                        19.55,364.98 37.88,381.27 76.53,391.53
-                                        102.89,398.80 112.17,404.56 112.17,413.83
-                                        112.17,423.59 102.12,429.11 84.56,429.11
-                                        65.48,429.11 48.17,423.34 30.84,411.33
-                                        30.84,411.33 12.27,442.41 12.27,442.41
-                                        32.09,457.47 58.45,466.00 85.56,466.00 Z
-                                    M 210.72,464.00
-                                    C 210.72,464.00 253.89,464.00 253.89,464.00
-                                        253.89,464.00 253.89,327.67 253.89,327.67
-                                        253.89,327.67 305.09,327.67 305.09,327.67
-                                        305.09,327.67 305.09,288.00 305.09,288.00
-                                        305.09,288.00 159.77,288.00 159.77,288.00
-                                        159.77,288.00 159.77,327.67 159.77,327.67
-                                        159.77,327.67 210.72,327.67 210.72,327.67
-                                        210.72,327.67 210.72,464.00 210.72,464.00 Z
-                                    M 402.91,467.00
-                                    C 457.38,467.00 496.53,428.61 496.53,376.02
-                                        496.53,323.41 457.38,285.00 402.91,285.00
-                                        348.94,285.00 309.28,323.41 309.28,376.02
-                                        309.28,428.61 348.94,467.00 402.91,467.00 Z
-                                    M 353.45,376.02
-                                    C 353.45,345.70 374.05,324.42 402.91,324.42
-                                        432.02,324.42 452.61,345.70 452.61,376.02
-                                        452.61,406.31 432.02,427.59 402.91,427.59
-                                        374.05,427.59 353.45,406.31 353.45,376.02 Z
-                                    M 523.81,464.00
-                                    C 523.81,464.00 641.28,464.00 641.28,464.00
-                                        641.28,464.00 641.28,424.09 641.28,424.09
-                                        641.28,424.09 566.98,424.09 566.98,424.09
-                                        566.98,424.09 566.98,288.00 566.98,288.00
-                                        566.98,288.00 523.81,288.00 523.81,288.00
-                                        523.81,288.00 523.81,464.00 523.81,464.00 Z
-                                    M 665.81,464.00
-                                    C 665.81,464.00 708.98,464.00 708.98,464.00
-                                        708.98,464.00 708.98,288.00 708.98,288.00
-                                        708.98,288.00 665.81,288.00 665.81,288.00
-                                        665.81,288.00 665.81,464.00 665.81,464.00 Z
-                                    M 744.81,464.00
-                                    C 744.81,464.00 786.23,464.00 786.23,464.00
-                                        786.23,464.00 786.23,360.17 786.23,360.17
-                                        786.23,360.17 864.30,464.00 864.30,464.00
-                                        864.30,464.00 899.44,464.00 899.44,464.00
-                                        899.44,464.00 899.44,288.00 899.44,288.00
-                                        899.44,288.00 858.02,288.00 858.02,288.00
-                                        858.02,288.00 858.02,392.09 858.02,392.09
-                                        858.02,392.09 779.70,288.00 779.70,288.00
-                                        779.70,288.00 744.81,288.00 744.81,288.00
-                                        744.81,288.00 744.81,464.00 744.81,464.00 Z
-                                    M 934.81,464.00
-                                    C 934.81,464.00 977.98,464.00 977.98,464.00
-                                        977.98,464.00 977.98,288.00 977.98,288.00
-                                        977.98,288.00 934.81,288.00 934.81,288.00
-                                        934.81,288.00 934.81,464.00 934.81,464.00 Z"
-                                />
-                            </svg>
+                    <path
+                        fill={themeDark ? 'black' : 'white'}
+                        d="M 85.56,466.00
+                                        C 127.73,466.00 155.59,444.92 155.59,413.58
+                                            155.59,385.53 136.52,368.48 95.61,357.22
+                                            69.50,349.70 62.22,344.44 62.22,335.92
+                                            62.22,327.41 71.27,322.16 85.56,322.16
+                                            101.88,322.16 120.20,328.41 132.25,337.69
+                                            132.25,337.69 151.08,307.59 151.08,307.59
+                                            132.75,294.05 109.41,286.00 84.06,286.00
+                                            43.39,286.00 19.55,306.84 19.55,336.42
+                                            19.55,364.98 37.88,381.27 76.53,391.53
+                                            102.89,398.80 112.17,404.56 112.17,413.83
+                                            112.17,423.59 102.12,429.11 84.56,429.11
+                                            65.48,429.11 48.17,423.34 30.84,411.33
+                                            30.84,411.33 12.27,442.41 12.27,442.41
+                                            32.09,457.47 58.45,466.00 85.56,466.00 Z
+                                        M 210.72,464.00
+                                        C 210.72,464.00 253.89,464.00 253.89,464.00
+                                            253.89,464.00 253.89,327.67 253.89,327.67
+                                            253.89,327.67 305.09,327.67 305.09,327.67
+                                            305.09,327.67 305.09,288.00 305.09,288.00
+                                            305.09,288.00 159.77,288.00 159.77,288.00
+                                            159.77,288.00 159.77,327.67 159.77,327.67
+                                            159.77,327.67 210.72,327.67 210.72,327.67
+                                            210.72,327.67 210.72,464.00 210.72,464.00 Z
+                                        M 402.91,467.00
+                                        C 457.38,467.00 496.53,428.61 496.53,376.02
+                                            496.53,323.41 457.38,285.00 402.91,285.00
+                                            348.94,285.00 309.28,323.41 309.28,376.02
+                                            309.28,428.61 348.94,467.00 402.91,467.00 Z
+                                        M 353.45,376.02
+                                        C 353.45,345.70 374.05,324.42 402.91,324.42
+                                            432.02,324.42 452.61,345.70 452.61,376.02
+                                            452.61,406.31 432.02,427.59 402.91,427.59
+                                            374.05,427.59 353.45,406.31 353.45,376.02 Z
+                                        M 523.81,464.00
+                                        C 523.81,464.00 641.28,464.00 641.28,464.00
+                                            641.28,464.00 641.28,424.09 641.28,424.09
+                                            641.28,424.09 566.98,424.09 566.98,424.09
+                                            566.98,424.09 566.98,288.00 566.98,288.00
+                                            566.98,288.00 523.81,288.00 523.81,288.00
+                                            523.81,288.00 523.81,464.00 523.81,464.00 Z
+                                        M 665.81,464.00
+                                        C 665.81,464.00 708.98,464.00 708.98,464.00
+                                            708.98,464.00 708.98,288.00 708.98,288.00
+                                            708.98,288.00 665.81,288.00 665.81,288.00
+                                            665.81,288.00 665.81,464.00 665.81,464.00 Z
+                                        M 744.81,464.00
+                                        C 744.81,464.00 786.23,464.00 786.23,464.00
+                                            786.23,464.00 786.23,360.17 786.23,360.17
+                                            786.23,360.17 864.30,464.00 864.30,464.00
+                                            864.30,464.00 899.44,464.00 899.44,464.00
+                                            899.44,464.00 899.44,288.00 899.44,288.00
+                                            899.44,288.00 858.02,288.00 858.02,288.00
+                                            858.02,288.00 858.02,392.09 858.02,392.09
+                                            858.02,392.09 779.70,288.00 779.70,288.00
+                                            779.70,288.00 744.81,288.00 744.81,288.00
+                                            744.81,288.00 744.81,464.00 744.81,464.00 Z
+                                        M 934.81,464.00
+                                        C 934.81,464.00 977.98,464.00 977.98,464.00
+                                            977.98,464.00 977.98,288.00 977.98,288.00
+                                            977.98,288.00 934.81,288.00 934.81,288.00
+                                            934.81,288.00 934.81,464.00 934.81,464.00 Z"
+                    />
+                </svg>
+            </div>
 
-                        </Link>
-                    )}
+            <div
+                className={`border bg-white-parcial-transparent flex rounded-md py-1.5 px-3 gap-1.5 justify-start items-center order-3 col-span-3 md:col-span-1 md:col-start-3 md:row-start-1 ${themeDark ? 'text-black' : 'text-white'}`}
+            >
+                <span>
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke={themeDark ? 'black' : 'white'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span>
+                    Buscar
+                </span>
+            </div>
 
-                    <ul
-                        className='gap-4 hidden xl:flex'
-                    >
-                    {NavbarMenu?.map((item, index) => (
-                        <li key={index}>
-                            <button
-                                className='uppercase text-xxs cursor-pointer font-semibold text-black underline transition-opacity-decoration decoration-transparent underline-offset-18 decoration-2'
-                                onMouseEnter={onMouseEnter}
-                                onMouseLeave={onMouseLeave}
-                                onTouchStart={handleTouchMenu}
-                            >
-                                {item.name}
-                            </button>
-                        </li>
-                    ))}
-                    </ul>
-                </div>
-
-                {navigationBar ? (
-                    <h4
-                        className='uppercase font-semibold animation-fade'
-                    >
-                        {titleNavigation}
-                    </h4>
-                ) : ''}
-
-                {menuActivated || navigationBar ? (
-                    <nav className="flex gap-5">
-                        <button
-                            onClick={closeMenu}
-                        >
-                            <svg className='animation-fade' fill="none" height="22" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="18" x2="6" y1="6" y2="18" />
-                                <line x1="6" x2="18" y1="6" y2="18" />
-                            </svg>
-                        </button>
-                    </nav>
-                ) : (
-                    <nav className="flex gap-5 items-center">
-                        <svg className='animation-fade' fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="11" cy="11" r="8" /><line x1="21" x2="16.65" y1="21" y2="16.65" />
-                        </svg>
-
-                        <svg className="animation-fade hidden xl:block" fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                        </svg>
-
-                        <svg className='animation-fade' fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-                        </svg>
-
-                        <svg className='animation-fade' fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" x2="21" y1="6" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" />
-                        </svg>
-
-                        <button
-                            onClick={menuAction}
-                            className='xl:hidden'
-                        >
-                            <svg className='animation-fade' fill="none" height="22" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                <line x1="6" x2="21" y1="12" y2="12" />
-                                <line x1="0" x2="21" y1="6" y2="6" />
-                            </svg>
-                        </button>
-                    </nav>
-                )}
-            </nav>
-
-            {navigationBar ? (
-                <MenuBar/>
-            ): ''}
-
-            {mouseEnterContent ? (
-                <MouseOver
-                    content={contentLoadingMouseEnter}
-                    onMouseContentLeave={onMouseContentLeave}
-                    setMouseEnterContent={setMouseEnterContent}
-                    setMouseEnter={setMouseEnter}
-                />
-            ) : ''}
-
-            {menuActivated ? (
-                <div
-                    className={'w-full ' + ((menuActivated || navigationBar) ? 'animation-menu' : 'animation-menu-reverse')}
-                >   {menuActivated ? (
-                    <>
-                        <ul
-                            className='p-4 my-6 flex flex-col gap-6'
-                        >
-                            {NavbarMenu?.map((item, index) => (
-                                <li
-                                    key={index}
-                                    className='flex justify-between items-center'
-                                >
-                                    <button
-                                        className='uppercase font-semibold text-black'
-                                        onClick={handleClickMenuNavigation}
-                                    >
-                                        {item.name}
-                                    </button>
-
-                                    <svg fill="none" height="24" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                        <polyline points="10 17 15 12 10 7"/>
-                                    </svg>
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div
-                            className='px-3 mt-16 '
-                        >
-                            <ul
-                                className='flex flex-col gap-6 text-black/85'
-                            >
-                                <li>
-                                    <Link
-                                        href='#conta'
-                                        className='flex gap-4 items-center'
-                                    >
-                                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-                                        </svg>
-                                        <label
-                                            className='text-sm'
-                                        >
-                                            <b>Fazer login</b> ou
-                                            <b> criar uma conta</b>
-                                        </label>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href='#carrinho'
-                                        className='flex gap-4 items-center'
-                                    >
-                                        <svg fill="none" height="20" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" x2="21" y1="6" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" />
-                                        </svg>
-                                        <label
-                                            className='text-sm font-semibold'
-                                        >
-                                            Carrinho
-                                        </label>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link
-                                        href="#ajuda"
-                                        className='flex gap-4 items-center'
-                                    >
-                                        <svg fill="none" height="20" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                                        </svg>
-                                        <label
-                                            className='text-sm font-semibold'
-                                        >
-                                            Ajuda
-                                        </label>
-                                    </Link>
-                                </li>
-                            </ul>
-                        </div>
-                    </>
-                ): ''}
-                </div>
-            ) : ''}
+            <div
+                className='flex gap-4 items-center justify-end md:col-start-4'
+            >
+                <button>
+                    <svg className='h-6 w-6' width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 20C5.33579 17.5226 8.50702 16 12 16C15.493 16 18.6642 17.5226 21 20M16.5 7.5C16.5 9.98528 14.4853 12 12 12C9.51472 12 7.5 9.98528 7.5 7.5C7.5 5.01472 9.51472 3 12 3C14.4853 3 16.5 5.01472 16.5 7.5Z" stroke={themeDark ? 'black' : 'white'} stroke-width="2" />
+                    </svg>
+                </button>
+                <button>
+                    <svg className='h-6 w-6' width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.59237 10.352L2.59674 10.2586L3.59237 10.352ZM4.15403 7.46616L3.29462 6.95488L3.29462 6.95488L4.15403 7.46616ZM8.37142 6L8.37142 5L8.37142 6ZM5.44579 6.28984L5.87462 7.19323L5.44579 6.28984ZM4.35839 21.6338L3.87959 22.5117L4.35839 21.6338ZM2.99237 16.752L3.98801 16.8453L3.98801 16.8453L2.99237 16.752ZM3.03842 20.1843L2.11963 20.579L2.11963 20.579L3.03842 20.1843ZM21.0084 16.752L22.004 16.6586L22.004 16.6586L21.0084 16.752ZM20.9623 20.1843L21.8811 20.579L21.8811 20.579L20.9623 20.1843ZM19.6423 21.6338L20.1211 22.5117L19.6423 21.6338ZM20.4084 10.352L19.4127 10.4453L19.4127 10.4453L20.4084 10.352ZM19.8467 7.46616L20.7061 6.95488L20.7061 6.95488L19.8467 7.46616ZM15.6293 6L15.6293 7L15.6293 6ZM18.555 6.28984L18.9838 5.38646L18.555 6.28984ZM15.0004 9C15.0004 9.55228 15.4481 10 16.0004 10C16.5527 10 17.0004 9.55228 17.0004 9H15.0004ZM20.4084 10.352L19.4127 10.4453L20.0127 16.8453L21.0084 16.752L22.004 16.6586L21.404 10.2586L20.4084 10.352ZM16.2293 22V21H7.77142V22V23H16.2293V22ZM2.99237 16.752L3.98801 16.8453L4.58801 10.4453L3.59237 10.352L2.59674 10.2586L1.99674 16.6586L2.99237 16.752ZM8.37142 6L8.37142 7L15.6293 7L15.6293 6L15.6293 5L8.37142 5L8.37142 6ZM3.59237 10.352L4.58801 10.4453C4.6615 9.66138 4.71196 9.13073 4.78293 8.72153C4.85178 8.32448 4.92817 8.12078 5.01344 7.97744L4.15403 7.46616L3.29462 6.95488C3.03432 7.39242 2.90191 7.86331 2.81234 8.37979C2.72488 8.88411 2.6673 9.50593 2.59674 10.2586L3.59237 10.352ZM8.37142 6L8.37142 5C7.61543 5 6.99095 4.99929 6.48066 5.03929C5.95807 5.08026 5.47688 5.16814 5.01696 5.38646L5.44579 6.28984L5.87462 7.19323C6.02529 7.1217 6.23523 7.06467 6.63697 7.03317C7.05101 7.00071 7.58405 7 8.37142 7L8.37142 6ZM4.15403 7.46616L5.01344 7.97744C5.21634 7.63639 5.51611 7.36341 5.87462 7.19323L5.44579 6.28984L5.01696 5.38646C4.29995 5.72681 3.70041 6.27278 3.29462 6.95488L4.15403 7.46616ZM7.77142 22V21C6.84032 21 6.20454 20.9992 5.71567 20.9578C5.23738 20.9173 4.99852 20.8438 4.83718 20.7559L4.35839 21.6338L3.87959 22.5117C4.38976 22.7899 4.94358 22.8996 5.547 22.9507C6.13985 23.0008 6.87484 23 7.77142 23V22ZM2.99237 16.752L1.99674 16.6586C1.91305 17.5513 1.84361 18.283 1.83823 18.8779C1.83276 19.4835 1.89024 20.0451 2.11963 20.579L3.03842 20.1843L3.9572 19.7895C3.88466 19.6207 3.83381 19.376 3.83815 18.896C3.84259 18.4054 3.9011 17.7723 3.98801 16.8453L2.99237 16.752ZM4.35839 21.6338L4.83718 20.7559C4.44392 20.5414 4.13404 20.2011 3.9572 19.7895L3.03842 20.1843L2.11963 20.579C2.4733 21.4022 3.09306 22.0828 3.87959 22.5117L4.35839 21.6338ZM21.0084 16.752L20.0127 16.8453C20.0996 17.7723 20.1582 18.4054 20.1626 18.896C20.1669 19.376 20.1161 19.6207 20.0435 19.7895L20.9623 20.1843L21.8811 20.579C22.1105 20.0451 22.168 19.4835 22.1625 18.8779C22.1571 18.283 22.0877 17.5513 22.004 16.6586L21.0084 16.752ZM16.2293 22V23C17.1259 23 17.8609 23.0008 18.4537 22.9507C19.0572 22.8996 19.611 22.7899 20.1211 22.5117L19.6423 21.6338L19.1636 20.7559C19.0022 20.8438 18.7634 20.9173 18.2851 20.9578C17.7962 20.9992 17.1604 21 16.2293 21V22ZM20.9623 20.1843L20.0435 19.7895C19.8667 20.2011 19.5568 20.5414 19.1636 20.7559L19.6423 21.6338L20.1211 22.5117C20.9077 22.0828 21.5274 21.4022 21.8811 20.579L20.9623 20.1843ZM20.4084 10.352L21.404 10.2586C21.3334 9.50594 21.2759 8.88411 21.1884 8.37979C21.0988 7.86331 20.9664 7.39242 20.7061 6.95488L19.8467 7.46616L18.9873 7.97744C19.0726 8.12078 19.149 8.32448 19.2178 8.72153C19.2888 9.13073 19.3392 9.66138 19.4127 10.4453L20.4084 10.352ZM15.6293 6L15.6293 7C16.4167 7 16.9497 7.00072 17.3638 7.03317C17.7655 7.06467 17.9754 7.12171 18.1261 7.19323L18.555 6.28984L18.9838 5.38646C18.5239 5.16814 18.0427 5.08026 17.5201 5.03929C17.0098 4.99929 16.3853 5 15.6293 5L15.6293 6ZM19.8467 7.46616L20.7061 6.95488C20.3003 6.27278 19.7008 5.72681 18.9838 5.38646L18.555 6.28984L18.1261 7.19323C18.4846 7.36341 18.7844 7.63639 18.9873 7.97744L19.8467 7.46616ZM16.0004 6H15.0004V9H16.0004H17.0004V6H16.0004ZM8.00037 9H9.00037V6H8.00037H7.00037V9H8.00037ZM8.00037 6H9.00037C9.00037 4.34315 10.3435 3 12.0004 3V2V1C9.23895 1 7.00037 3.23858 7.00037 6H8.00037ZM16.0004 6H17.0004C17.0004 3.23858 14.7618 1 12.0004 1V2V3C13.6572 3 15.0004 4.34315 15.0004 6H16.0004Z" fill={themeDark ? 'black' : 'white'} />
+                    </svg>
+                </button>
+            </div>
         </header>
     )
 }

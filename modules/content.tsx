@@ -3,58 +3,16 @@ import Image from "next/image";
 export default function Content() {
 
     return (
-        <div
-            className="relative"
-        >
+        <div>
             <picture>
-                <source media="(min-width: 1280px)" srcSet="/card_01/image_principalCard_high.avif" />
-
-                <source media="(min-width: 768px) and (max-width: 1280px)" srcSet="/card_01/image_principal_1279.avif" />
-                
                 <Image
-                    src="/card_01/image_principal_767.avif"
+                    src="/content/news_1300.jpg"
                     width={3000}
                     height={800}
                     alt="imagem da coleção principal"
+                    className="object-cover max-h-screen"
                 />
             </picture>
-        
-            <div
-                className="absolute top-0 p-5 flex flex-col gap-2.5 2xl:gap-5"
-            >
-                <div
-                    className="flex flex-col 2xl:gap-0.5"
-                >
-                    <h1
-                        className="font-semibold text-2xl"
-                    >
-                        Days of Summer
-                    </h1>
-
-                    <p
-                        className="text-sm font-semibold xl:font-normal"
-                    >
-                        Uma nova abordagem para a temporada de verão
-                    </p>
-                </div>
-
-                <div
-                    className="flex gap-4"
-                >
-                    <a
-                        href="#"
-                        className="font-semibold uppercase text-sm underline underline-offset-12 tracking-wider"
-                    >
-                        para ela
-                    </a>
-                    <a
-                        href="#"
-                        className="font-semibold uppercase text-sm underline underline-offset-12 tracking-wider"
-                    >
-                        para galleria
-                    </a>
-                </div>
-            </div>
         </div>
     );
 }

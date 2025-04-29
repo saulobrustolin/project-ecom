@@ -1,9 +1,10 @@
-export default function MenuBar() {
+export default function MenuBar({ index, content }) {
+    console.log(content[index]);
     return (
         <div
             className="animation-menu"
         >
-            menubar
+            {content[index].name}
         </div>
     )
 }
