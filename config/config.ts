@@ -139,6 +139,52 @@ export const valuesHeader: valuesHeader[] = [
     }
 ]
 
-export const valuesHeaderWomen = {
-    
-}
+export const footer = [
+    {
+        title: 'Ajuda',
+        itens: [
+            {
+                name: 'Fale conosco pelo WhatsApp',
+                direct: '#'
+            },
+            {
+                name: 'FAQ',
+                direct: '#'
+            },
+            {
+                name: 'Contato',
+                direct: '#'
+            },
+        ]
+    },
+    {
+        title: 'servições oferecidos',
+        itens: [
+            {
+                name: 'Acompanhe seu pedido',
+                direct: '#'
+            },
+            {
+                name: 'Devoluções',
+                direct: '#'
+            },
+        ]
+    },
+    {
+        title: 'Termos e condições legais',
+        itens: [
+            {
+                name: 'Política de Envio',
+                direct: '#'
+            },
+            {
+                name: 'Política de Reembolso',
+                direct: '#'
+            },
+            {
+                name: 'Termos de Uso',
+                direct: '#'
+            },
+        ]
+    },
+]

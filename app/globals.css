@@ -7,7 +7,8 @@ b {
 
     /* Configurações de tema do tailwindcss*/
 @theme {
-    --color-white-parcial-transparent: rgba(255, 255, 255, 0.1); 
+    --color-white-parcial-transparent: rgba(255, 255, 255, 0.1);
+    --color-black-parcial-transparent: rgba(0, 0, 0, 0.25);
 }
 
 * {
@@ -34,6 +35,10 @@ b {
 
 .animation-opacity {
     animation: opacity 0.2s ease-in-out;
+}
+
+.animation-footer-content {
+    animation: translate-footer-content 0.2s ease-in-out;
 }
 
 @keyframes fade {
@@ -99,6 +104,17 @@ b {
     }
     100% {
         opacity: 0.65;
+    }
+}
+
+@keyframes translate-footer-content {
+    0% {
+        transform: translateX(-100px);
+        opacity: 0;
+    }
+    100% {
+        transform: initial;
+        opacity: 1;
     }
 }
 

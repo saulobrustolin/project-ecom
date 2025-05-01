@@ -4,9 +4,7 @@ import Footer from "@/modules/footer";
 
 export default function Home() {  
   return (
-    <div
-      className="flex flex-col items-center"
-    >
+    <div>
       <Header/>
 
       <main>

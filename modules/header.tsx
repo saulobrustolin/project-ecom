@@ -11,28 +11,11 @@ export default function Header() {
 
     return (
         <header
-            className="top-0 
-                left-0 
-                grid 
-                grid-rows-2 
-                md:grid-rows-1 
-                grid-cols-3 
-                md:grid-cols-[30%_1fr_20%_auto] 
-                md:gap-4
-                2xl:grid-cols-[20%_1fr_15%_5%] 
-                2xl:gap-6
-                gap-2 
-                fixed 
-                items-center 
-                justify-between 
-                min-w-screen 
-                py-5 
-                px-4 
-                shadow-in-box"
+            className="top-0 left-0 grid grid-rows-2 md:grid-rows-1 grid-cols-3 md:grid-cols-[30%_1fr_20%_auto] md:gap-4 2xl:grid-cols-[20%_1fr_15%_5%] 2xl:gap-6 gap-2 fixed items-center justify-between min-w-screen py-5 px-4 shadow-in-box"
         >
             <div
                 className='flex justify-start'
-            >    
+            >
                 <svg className='h-6 w-6' width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 12H21M3 6H21M3 18H21" stroke={themeDark ? 'black' : 'white'} stroke-width="2" />
                 </svg>
@@ -119,7 +102,7 @@ export default function Header() {
             >
                 <span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke={themeDark ? 'black' : 'white'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M21 21L16.65 16.65M19 11C19 15.4183 15.4183 19 11 19C6.58172 19 3 15.4183 3 11C3 6.58172 6.58172 3 11 3C15.4183 3 19 6.58172 19 11Z" stroke={themeDark ? 'black' : 'white'} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </span>
                 <span

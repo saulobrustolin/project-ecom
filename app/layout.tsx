@@ -1,12 +1,11 @@
-import type { Metadata } from "next";
-import { Inter } from 'next/font/google'
+import { Metadata } from "next";
+import { Inter } from 'next/font/google';
 import "./globals.css";
 
-const inter = Inter({
+const font = Inter({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic'], 
-});
+  weight: ['200', '300', '400', '500', '600', '700']
+})
 
 export const metadata: Metadata = {
   title: "project ecom",
@@ -21,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body
-        className={`antialiased ${inter.className}`}
+        className={`antialiased ${font.className}`}
       >
         {children}
       </body>
