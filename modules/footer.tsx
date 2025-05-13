@@ -33,6 +33,7 @@ export default function Footer() {
                 return (
                     <div
                         className='flex flex-col divide-y divide-black-parcial-transparent md:divide-y-0 md:px-5 xl:px-20 md:py-6'
+                        key={`key-${value}-${index}`}
                     >
                         <section
                             className='flex flex-col gap-2 p-4 py-6 md:p-0'
@@ -54,24 +55,38 @@ export default function Footer() {
                         </section>
                         {((index === activeIndex) || width > 768) ? (
                                 <ul
-                                    className='animation-footer-content flex flex-col divide-y divide-black-parcial-transparent md:divide-y-0'
+                                    className={`flex flex-col divide-y divide-black-parcial-transparent md:divide-y-0`}
                                 >
                                     {value.itens.map((item, position) => {
                                         return (
                                             <li
                                                 key={`key-itens-${position}-${item.name}`}
-                                                className='pl-8 text-sm py-6 md:p-2 md:pl-0 md:text-xs'
+                                                className={`pl-8 text-sm py-6 md:p-2 md:pl-0 md:text-xs`}
                                             >
                                                 <Suspense
                                                     fallback={<div className='animate-pulse'></div>}
                                                 >
-                                                    <Link
-                                                        href={item.direct}
-                                                        onClick={() => setActiveIndex(null)}
-                                                        className='hover:text-stone-600'
+                                                    <div
+                                                        className='flex justify-start gap-0.5'
                                                     >
-                                                        {item.name}
-                                                    </Link>
+                                                        <Link
+                                                            href={item.direct}
+                                                            onClick={() => setActiveIndex(null)}
+                                                            className='hover:text-stone-600'
+                                                        >
+                                                            {item.name}
+                                                        </Link>
+
+                                                        {width < 768 ? (
+                                                            <Image
+                                                                src='ui-icons/trend-up.svg'
+                                                                width={20}
+                                                                height={20}
+                                                                alt='icon redirect'
+                                                                className='h-4'
+                                                            />
+                                                        ) : ''}
+                                                    </div>
                                                 </Suspense>
                                             </li>
                                         )
@@ -94,34 +109,46 @@ export default function Footer() {
                     className='flex gap-4 items-center'
                 >
                     <li>
-                        <Image
-                            src='/ui-icons/social/instagram.svg'
-                            width={22}
-                            height={22}
-                            alt='instagram icon'
-                        />
+                        <Link
+                            href='#'
+                        >
+                            <Image
+                                src='/ui-icons/social/instagram.svg'
+                                width={22}
+                                height={22}
+                                alt='instagram icon'
+                            />
+                        </Link>
                     </li>
                     <li>
-                        <Image
-                            src='/ui-icons/social/pinterest.svg'
-                            width={26}
-                            height={26}
-                            alt='pinterest icon'
-                        />
+                        <Link
+                            href='#'
+                        >
+                            <Image
+                                src='/ui-icons/social/pinterest.svg'
+                                width={26}
+                                height={26}
+                                alt='pinterest icon'
+                            />
+                        </Link>
                     </li>
                     <li>
-                        <Image
-                            src='/ui-icons/social/tiktok.svg'
-                            width={20}
-                            height={20}
-                            alt='tiktok icon'
-                        />
+                        <Link
+                            href='#'
+                        >
+                            <Image
+                                src='/ui-icons/social/tiktok.svg'
+                                width={20}
+                                height={20}
+                                alt='tiktok icon'
+                            />
+                        </Link>
                     </li>
                 </ul>
             </div>
 
             <div
-                className='p-4 pb-0 text-center md:col-span-full md:p-2'
+                className='p-4 text-center md:col-span-full md:p-2'
             >
                 <span
                     className='text-[0.6rem] text-[0.6rem]/0.25 text-stone-900'

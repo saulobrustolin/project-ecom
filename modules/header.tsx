@@ -1,13 +1,30 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
+
+import Menu from './menu';
 
 export default function Header() {
     const [themeDark, setThemeDark] = useState(true);
+    const [menu, setMenu] = useState(false);
+    
+    const inputRef = useRef(null);
 
     useEffect(() => {
         setThemeDark(false);
     }, []);
+
+    // funções de evento
+    function activeMenu() {
+        setMenu(!menu);
+    }
+
+    function clickSearch() {
+        activeMenu();
+        setTimeout(() => {
+            inputRef.current.focus();
+        }, 50)
+    }
 
     return (
         <header
@@ -16,7 +33,7 @@ export default function Header() {
             <div
                 className='flex justify-start'
             >
-                <svg className='h-6 w-6' width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg onClick={activeMenu} className='h-6 w-6' width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M3 12H21M3 6H21M3 18H21" stroke={themeDark ? 'black' : 'white'} stroke-width="2" />
                 </svg>
             </div>
@@ -27,7 +44,7 @@ export default function Header() {
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="12 286 970 180"
                     height='24'
-                    className='text-center 2xl:h-7'
+                    className={`text-center 2xl:h-7 cursor-pointer`}
                 >
                     <path
                         fill={themeDark ? 'black' : 'white'}
@@ -99,6 +116,7 @@ export default function Header() {
 
             <div
                 className={`border bg-white-parcial-transparent flex rounded-md py-1.5 px-3 gap-1.5 justify-start items-center order-3 col-span-3 md:col-span-1 md:col-start-3 md:row-start-1 ${themeDark ? 'text-black' : 'text-white'}`}
+                onClick={clickSearch}
             >
                 <span>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,6 +144,12 @@ export default function Header() {
                     </svg>
                 </button>
             </div>
+
+            <Menu
+                activeMenu={activeMenu}
+                menu={menu}
+                inputRef={inputRef}
+            />
         </header>
     )
 }

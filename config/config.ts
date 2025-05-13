@@ -158,7 +158,7 @@ export const footer = [
         ]
     },
     {
-        title: 'servições oferecidos',
+        title: 'serviços oferecidos',
         itens: [
             {
                 name: 'Acompanhe seu pedido',
